@@ -82,20 +82,36 @@ Aşağıda iki temsili senaryonun çıktısı verilmiştir:
 ## VIII. Setup Guide
 1. Ön koşullar
    - Python `3.12`
-   - `poetry` yüklü
-2. Bağımlılıkları yükleyin
+   - `poetry` yüklü (veya `pip`)
+
+2. Bağımlılıkları yükleyin (Önerilen)
    - Proje kök dizininde: `poetry install`
-3. API anahtarını ayarlayın
+
+3. Bağımlılıkları yükleyin (Alternatif - Poetry Hatası Durumunda)
+   - Poetry ile `torch` kurulumunda sorun yaşarsanız (özellikle Windows'ta), şu adımları izleyin:
+   - `python -m venv venv`
+   - `venv\Scripts\activate` (Windows)
+   - `pip install -r requirements.txt`
+
+4. API anahtarını ayarlayın
    - Proje kök dizininde `.env` oluşturun
    - Şu değişkeni ekleyin: `NEBIUS_API_KEY=...`
-4. Uygulamayı çalıştırın (Streamlit arayüzü)
-   - `poetry run streamlit run main.py`
-   - Konsolda görünen `Local URL` üzerinden uygulamayı açın.
-5. Hızlı doğrulama (opsiyonel demo)
-   - `poetry run python run_agent_demo.py`
-   - Araç seçim ve tool execution akışı `agent_thinking_process_demo.txt` dosyasına yazılır.
-6. Testleri de çalıştırma (opsiyonel)
-   - `poetry run pytest -q` (LLM çağrıları için `.env` içinde `NEBIUS_API_KEY` olmalı).
+
+5. Model Boyutları Hakkında Önemli Not
+   - Sistem, ilk çalıştırmada embedding ve reranker modellerini Hugging Face üzerinden **otomatik olarak** lokal diske indirir. İlk çalıştırma için internet bağlantısı gereklidir.
+   - Tasarımda kullanılan orijinal modeller: `BAAI/bge-large-en-v1.5` (~1.3 GB) ve `BAAI/bge-reranker-v2-m3` (~1.1 GB). Bunlar yüksek doğruluk için optimize edilmiştir.
+   - Donanımınız kısıtlıysa `src/tools/registry.py` dosyasından model adlarını aşağıdaki daha hafif alternatiflerle değiştirebilirsiniz:
+     - Embedding: `BAAI/bge-small-en-v1.5` (~130 MB)
+     - Reranker: `BAAI/bge-reranker-base` (~280 MB)
+
+6. Uygulamayı çalıştırın (Streamlit arayüzü)
+   - `poetry run streamlit run main.py` veya `streamlit run main.py` (pip ile kurduysanız)
+
+7. Hızlı doğrulama (opsiyonel demo)
+   - `python run_agent_demo.py`
+
+8. Testleri de çalıştırma (opsiyonel)
+   - `pytest -q`
 
 ---
 *Developed by **Hasan Kırtaş** for UtaiSOFT AI Case Study.*
