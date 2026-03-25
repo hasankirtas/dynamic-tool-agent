@@ -50,11 +50,32 @@ Sistemi net modüler sınırlarla inşa ettim:
 *   `Pydantic` modelleri ile giriş doğrulaması yapılarak çalışma zamanı hataları önlenmiştir.
 *   Yeni yetenekler, ana sistemde herhangi bir kod değişikliği yapmadan eklenebilir.
 
-## VII. Automated Testing & Verification
-Sistemin kararlılığını sağlamak için `pytest` tabanlı test süreçleri hazırladım:
-- **Registry Tests:** Araç keşfi ve vektör arama başarısı.
-- **Agent Tests:** Niyet tespiti ve doğru araç seçimi mantığı.
-- **Örnek Senaryolar:** Hava durumu veya kod icrası gibi başarılı kullanım durumları ve imkansız taleplerin güvenli bir şekilde reddedilme süreçleri.
+## VII. Sample Scenarios & Execution Logs
+
+Sistemin karar alma sürecini ve farklı durumlardaki davranışını görmek için tüm senaryo çıktıları [`agent_thinking_process.txt`](./agent_thinking_process.txt) dosyasında detaylı olarak yer almaktadır.
+
+Aşağıda iki temsili senaryonun çıktısı verilmiştir:
+
+**Senaryo 1: Başarılı Araç Kullanımı (Hava Durumu)**
+```
+[INTENT DETECTION] requires_tool: True | search_query: get current weather conditions for a city in celsius
+[TOOL RETRIEVAL]   candidates: ['weather_service', 'code_executor', 'database_query', ...]
+[TOOL EXECUTION]   Tool 'weather_service' executed successfully.
+                   result: {'location': 'Tokyo', 'temperature': 22, 'condition': 'Partly Cloudy'}
+[FINAL RESPONSE]   Currently in Tokyo, it's partly cloudy with a temperature of 22°C.
+```
+
+**Senaryo 2: Hallucination Guard (Kapsam Dışı İstek)**
+```
+[INTENT DETECTION] requires_tool: True | search_query: scientific information on quantum teleportation
+[TOOL RETRIEVAL]   candidates: ['web_search', 'document_reader', 'calendar_manager', ...]
+[TOOL SELECTION]   can_fulfill: False
+                   reasoning: All retrieved tools are designed for digital tasks.
+                              None can perform or facilitate physical teleportation.
+[FINAL RESPONSE]   I'm sorry, but I don't have the capability to teleport you to Mars...
+```
+
+> Tüm senaryo çıktıları (7 senaryo) için: [`agent_thinking_process.txt`](./agent_thinking_process.txt)
 
 ## VIII. Setup Guide
 1. Bağımlılıkları yükleyin: `poetry install`
