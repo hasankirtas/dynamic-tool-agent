@@ -89,7 +89,7 @@ Aşağıda iki temsili senaryonun çıktısı verilmiştir:
 
 3. Bağımlılıkları yükleyin (Alternatif - Poetry Hatası Durumunda)
    - Poetry ile `torch` kurulumunda sorun yaşarsanız (özellikle Windows'ta), şu adımları izleyin:
-   - `python -m venv venv`
+   - `py -3.12 -m venv venv`
    - `venv\Scripts\activate` (Windows)
    - `pip install -r requirements.txt`
 
