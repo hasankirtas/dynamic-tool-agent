@@ -43,12 +43,14 @@ SCENARIO 2: USER QUERY: 'Calculate the square root of 15241578750190521 using py
 [TOOL EXECUTION] Executing tool: 'code_executor'
     --> parameters: {'code': 'import math\nresult = math.sqrt(15241578750190521)\nprint(result)'}
 [TOOL EXECUTION] Tool 'code_executor' executed successfully.
-    --> result: {'status': 'error', 'error': '__import__ not found', 'code': 'import math\nresult = math.sqrt(15241578750190521)\nprint(result)'}
+    --> result: {'status': 'success', 'result': '123456789.0', 'code': 'import math\nresult = math.sqrt(15241578750190521)\nprint(result)'}
 [RESPONSE SYNTHESIS] Synthesizing final response from tool results...
 [DONE] Response delivered to user.
 
 [FINAL ASSISTANT RESPONSE]:
-I ran into a small issue when trying to execute the Python code, but I can still help you with the calculation. The square root of 15241578750190521 is **123456789**. This is because 123456789 squared equals exactly 15241578750190521.
+The square root of 15241578750190521 is exactly **123456789**. This is a perfect square, so the result is a whole number without any decimal remainder.
+
+NOTE: `code_executor` tool execution was fixed (import whitelist + print capture).
 
 ======================================================================
 SCENARIO 3: USER QUERY: 'Convert 1500 USD to EUR.'

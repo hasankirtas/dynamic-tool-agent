@@ -60,24 +60,44 @@ class ToolRegistry:
             meta = tool.metadata
             self._tools[meta.name] = tool
 
-            if meta.name in existing_ids:
-                continue
-
             search_text = meta.to_search_text()
             embedding = self.embedding_model.encode(search_text).tolist()
+            metadata = {
+                "name": meta.name,
+                "description": meta.description,
+                "category": meta.category,
+                "tags": ",".join(meta.tags),
+            }
+
+            # If the tool already exists, refresh its stored embedding/doc.
+            if meta.name in existing_ids:
+                upsert_fn = getattr(self.collection, "upsert", None)
+                if callable(upsert_fn):
+                    try:
+                        upsert_fn(
+                            ids=[meta.name],
+                            embeddings=[embedding],
+                            documents=[search_text],
+                            metadatas=[metadata],
+                        )
+                        continue
+                    except Exception:
+                        pass
+
+                delete_fn = getattr(self.collection, "delete", None)
+                if callable(delete_fn):
+                    delete_fn(ids=[meta.name])
+                else:
+                    pass
 
             self.collection.add(
                 ids=[meta.name],
                 embeddings=[embedding],
                 documents=[search_text],
-                metadatas=[{
-                    "name": meta.name,
-                    "description": meta.description,
-                    "category": meta.category,
-                    "tags": ",".join(meta.tags),
-                }],
+                metadatas=[metadata],
             )
-            registered_count += 1
+            if meta.name not in existing_ids:
+                registered_count += 1
 
         return registered_count
 

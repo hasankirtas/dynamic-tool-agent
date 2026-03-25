@@ -44,6 +44,8 @@ Sistemin en kritik bileşeni, alakasız araçların tetiklenmesini engelleyen ve
 ## V. Tool Discovery & Registry
 Vektör veritabanı olarak, düşük seviyeli alternatiflerine kıyasla basitliği ve hızlı prototiplemeye uygunluğu nedeniyle **ChromaDB**'yi seçtim. Embedding tarafında, lokalde çalışan SOTA performanslı **BGE-Large** modelini tercih ettim.
 
+Not: Embedding ve reranking modelleri, performans/CPU-RAM dengesine göre yalnızca model adları güncellenerek daha hafif varyantlarla değiştirilebilir.
+
 ## VI. Software Quality & Engineering Principles
 Sistemi net modüler sınırlarla inşa ettim:
 *   Araçlar, arşiv ve ajan mantığı sorumlulukların izole edilmesi için birbirinden ayrılmıştır.
@@ -78,9 +80,22 @@ Aşağıda iki temsili senaryonun çıktısı verilmiştir:
 > Tüm senaryo çıktıları (7 senaryo) için: [`agent_thinking_process.txt`](./agent_thinking_process.txt)
 
 ## VIII. Setup Guide
-1. Bağımlılıkları yükleyin: `poetry install`
-2. `.env` dosyasına `NEBIUS_API_KEY` ekleyin.
-3. Uygulamayı çalıştırın: `poetry run streamlit run main.py`
+1. Ön koşullar
+   - Python `3.12`
+   - `poetry` yüklü
+2. Bağımlılıkları yükleyin
+   - Proje kök dizininde: `poetry install`
+3. API anahtarını ayarlayın
+   - Proje kök dizininde `.env` oluşturun
+   - Şu değişkeni ekleyin: `NEBIUS_API_KEY=...`
+4. Uygulamayı çalıştırın (Streamlit arayüzü)
+   - `poetry run streamlit run main.py`
+   - Konsolda görünen `Local URL` üzerinden uygulamayı açın.
+5. Hızlı doğrulama (opsiyonel demo)
+   - `poetry run python run_agent_demo.py`
+   - Araç seçim ve tool execution akışı `agent_thinking_process_demo.txt` dosyasına yazılır.
+6. Testleri de çalıştırma (opsiyonel)
+   - `poetry run pytest -q` (LLM çağrıları için `.env` içinde `NEBIUS_API_KEY` olmalı).
 
 ---
 *Developed by **Hasan Kırtaş** for UtaiSOFT AI Case Study.*

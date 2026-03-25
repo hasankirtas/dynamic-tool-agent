@@ -41,7 +41,7 @@ def run_demo():
         "Hey! How are you doing today?",
     ]
 
-    output_file = "agent_extended_thinking_process.txt"
+    output_file = "agent_thinking_process_demo.txt"
     
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("=== EXTENDED AGENT THINKING PROCESS & TOOL RETRIEVAL LOGS ===\n\n")
