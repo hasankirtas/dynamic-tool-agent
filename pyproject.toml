@@ -1,0 +1,27 @@
+[project]
+name = "utiasoft-case-study"
+version = "0.1.0"
+description = "Dynamic Tool Selection & Agent Architecture case study"
+authors = [
+    {name = "Hasan Kirtas", email = "hksann985@outlook.com"}
+]
+readme = "README.md"
+requires-python = "^3.12"
+dependencies = [
+    "sentence-transformers (>=5.3.0,<6.0.0)",
+    "chromadb (>=1.5.5,<2.0.0)",
+    "openai (>=2.29.0,<3.0.0)",
+    "streamlit (>=1.55.0,<2.0.0)",
+    "python-dotenv (>=1.2.2,<2.0.0)",
+    "pydantic (>=2.12.5,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pytest-mock = "^3.15.1"
+

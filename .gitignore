@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+env/
+build/
+dist/
+
+# Configuration & Secrets
+.env
+.env.shared
+
+# IDEs
+.vscode/
+.idea/
+
+# Database / Local Storage
+app_chroma_db/
+chroma_db/
+demo_chroma_db*/
+test_chroma_db*/
+
+# OS
+.DS_Store
+Thumbs.db
