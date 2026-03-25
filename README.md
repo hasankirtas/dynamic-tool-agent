@@ -10,17 +10,17 @@ Sistemi, merkezi bir depo katmanından beslenen ve sadece ilgili yeteneği o anl
 
 ```mermaid
 graph TD
-    A[User Query] --> B{Intent Detection & <br/>Query Transformation}
+    A[User Query] --> B{Intent Detection and Query Transformation}
     B -- Small Talk --> C[Straight Response]
-    B -- Tool Required --> D[Capability Search & <br/>Vector Retrieval]
+    B -- Tool Required --> D[Capability Search and Vector Retrieval]
     D --> E[ChromaDB + BGE-Large]
     E --> F[Candidate Tools]
-    F --> G[Cross-Encoder Reranking <br/>(False-Positive Protection)]
-    G --> H{Final Tool Selection <br/>& Validation}
-    H -- No Match --> I[Hallucination Guard / <br/>Graceful Rejection]
+    F --> G["Cross-Encoder Reranking (False-Positive Protection)"]
+    G --> H{Final Tool Selection and Validation}
+    H -- No Match --> I["Hallucination Guard - Graceful Rejection"]
     H -- Selection --> J[Tool Execution]
-    J --> K[Observation / <br/>Result Synthesis]
-    K --> L[Final Humanized Answer]
+    J --> K[Result Synthesis]
+    K --> L[Final Answer]
 ```
 
 ## III. Agent Design
